@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Twitch TV Viewer</title>
+        
+        <!-- CSS LIBRARIES REQUIRED -->
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    
+    <body>
+        
+        
+        <!-- JS LIBRARIES REQUIRED -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <!-- INTERACTIONS -->
+        <script>
+            var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+            var myurl = "https://wind-bow.gomix.me/twitch-api/users/";
+            
+            $.ajax({
+                url: myurl,
+                dataType: "jsonp",
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        </script>
+    </body>
+</html>
