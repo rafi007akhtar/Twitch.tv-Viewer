@@ -17,7 +17,10 @@
                 overflow-x: hidden;
             }
             img {
-                width: 100px;
+                border-radius: 50%
+            }
+            a {
+                color: brown;
             }
             
             #heads {
@@ -33,11 +36,23 @@
                 padding-top: 0.7em;
             }
             .twitch-user {
-                font-size: 1.5em;
-                color: brown;
+                font-size: 1.6em;
                 font-family: "Bellefair";
                 border-top: 1px solid brown;
                 border-bottom: 1px solid brown;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .stream {
+                font-family: serif;
+                color: darkgray;
+                font-size: 15px;
+                font-weight: 600;
+                text-align: right;
+                font-style: italic;
+            }
+            .user-details {
+                padding-top: 17px;
             }
         </style>
     </head>
@@ -66,30 +81,8 @@
         <!-- TWITCH TV BODY -->
         <div class="row" id="twitch-head">
             <div class="col-xs-0 col-md-4"></div>
-            <div class="col-xs-12 col-md-4 text-left">
-                <ul type=none id="twitch-body" class="col-xs-12 text-left bg-danger">
-                    <!--<li>
-                        <span class="twitch-user">ESL_SC2</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">OgamingSC2</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">freecodecamp</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">storbeck</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">habathcx</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">RobotCaleb</span>
-                    </li>
-                    <li>
-                        <span class="twitch-user">noobs2ninjas</span>
-                    </li>-->
-                </ul>
+            <div class="col-xs-12 col-md-4">
+                <ul type=none id="twitch-body" class="col-xs-12 text-center bg-danger"></ul>
             </div>
             <div class="col-xs-0 col-md-4"></div>
         </div>
@@ -105,22 +98,44 @@
             var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
             var myurl = "https://wind-bow.gomix.me/twitch-api/users/";
             var newurl = "";
-            let i, c;
-            c = 0;
+            let i;
             for (i = 0; i < 8; i++) 
             {
-                c++;
                 newurl = myurl + users[i];
                 $.ajax({
                     url: newurl,
                     dataType: "jsonp",
                     success: function(data) {
                         var content = $("<li></li>");
-                        content.append("<img src='" + data.logo + "' alt='User logo'>")
-                        content.append("<span> " + data.display_name + " </span>")
-                        content.addClass("twitch-user");
+                        if (data.logo == null)
+                            content.append("<img src='https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' alt='User logo' class='col-xs-4'>")
+                        else
+                            content.append("<img src='" + data.logo + "' alt='User logo' class='col-xs-4'>")
+                        content.append("<span class='col-xs-8 user-details'> <a href='https://www.twitch.tv/" + data.name + "' target='_blank'>" + data.display_name + " </a> <br> <span id='" + data.name + "' class='text-right'></span> </span>")
+                        content.addClass("twitch-user row");
                         tbody.append(content);
-                        console.log(data);
+                    }
+                });
+            }
+            
+            var myurl = "https://wind-bow.gomix.me/twitch-api/streams/";
+            newurl = "";
+            for (i = 0; i < 8; i++) {
+                newurl = myurl + users[i];
+                $.ajax({
+                    url: newurl,
+                    dataType: "jsonp",
+                    success: function(data) {
+                        var stream = data.stream;
+                        if (stream != null) {
+                            var name = stream.channel.name;
+                            var id = $("#" + name);
+                            id.append(stream.channel.game);
+                            id.addClass("stream");
+                            var par = id.parent();
+                            par.removeClass("user-details");
+                            console.log(data);
+                        }
                     }
                 });
             }
