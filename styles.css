@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Bellefair');
+
+body {
+    overflow-x: hidden;
+}
+img {
+    border-radius: 50%
+}
+a {
+    color: brown;
+}
+
+#heads {
+    background-color: aliceblue;
+    color: darkgray;
+}
+#twitch-body {
+    line-height: 3em;
+}
+
+.twitch-navbar {
+    height: 3em;
+    padding-top: 0.7em;
+}
+.twitch-user {
+    font-size: 1.6em;
+    font-family: "Bellefair";
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.twitch-border-all {
+    border-top: 1px solid brown;
+    border-bottom: 1px solid brown;
+}
+.twitch-border-on {
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+}
+.twitch-border-off {
+    border-top: 1px solid darkgoldenrod;
+    border-bottom: 1px solid darkgoldenrod;
+}
+.stream {
+    font-family: serif;
+    color: darkgray;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: right;
+    font-style: italic;
+}
+.user-details {
+    padding-top: 17px;
+}
+.online-circle {
+    color: green;
+}
