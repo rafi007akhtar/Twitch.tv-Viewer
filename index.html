@@ -7,7 +7,7 @@
         <title>Twitch TV Viewer</title>
         
         <!-- CSS LIBRARIES REQUIRED -->
-        <link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
         
         <!-- STYLINGS -->
         <style>
@@ -38,10 +38,20 @@
             .twitch-user {
                 font-size: 1.6em;
                 font-family: "Bellefair";
-                border-top: 1px solid brown;
-                border-bottom: 1px solid brown;
                 padding-top: 5px;
                 padding-bottom: 5px;
+            }
+            .twitch-border-all {
+                border-top: 1px solid brown;
+                border-bottom: 1px solid brown;
+            }
+            .twitch-border-on {
+                border-top: 1px solid green;
+                border-bottom: 1px solid green;
+            }
+            .twitch-border-off {
+                border-top: 1px solid darkgoldenrod;
+                border-bottom: 1px solid darkgoldenrod;
             }
             .stream {
                 font-family: serif;
@@ -71,9 +81,9 @@
         <div class="row" id="twitch-head">
             <div class="col-xs-0 col-md-4"></div>
             <div class="col-xs-12 col-md-4 text-center">
-                <div class="col-xs-4 btn btn-danger">All</div>
-                <div class="col-xs-4 btn bg-success">Online</div>
-                <div class="col-xs-4 btn bg-warning">Offline</div>
+                <div class="col-xs-4 btn btn-danger" id="all"> All</div>
+                <div class="col-xs-4 btn bg-success" id="on"> Online</div>
+                <div class="col-xs-4 btn bg-warning" id="off"> Offline</div>
             </div>
             <div class="col-xs-0 col-md-4"></div>
         </div>
@@ -89,11 +99,12 @@
         
         <!-- JS LIBRARIES REQUIRED -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <!-- INTERACTIONS -->
         <script>
             var tbody = $("#twitch-body");
+            var thead = $("#twitch-head");
             
             var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
             var myurl = "https://wind-bow.gomix.me/twitch-api/users/";
@@ -112,7 +123,7 @@
                         else
                             content.append("<img src='" + data.logo + "' alt='User logo' class='col-xs-4'>")
                         content.append("<span class='col-xs-8 user-details'> <a href='https://www.twitch.tv/" + data.name + "' target='_blank'>" + data.display_name + " </a> <br> <span id='" + data.name + "' class='text-right'></span> </span>")
-                        content.addClass("twitch-user row");
+                        content.addClass("twitch-user twitch-border-all row");
                         tbody.append(content);
                     }
                 });
@@ -134,13 +145,77 @@
                             id.addClass("stream");
                             var par = id.parent();
                             par.removeClass("user-details");
-                            console.log(data);
+                            //console.log(data);
                         }
                     }
                 });
             }
             
             //console.log(tbody);
+            var all = $("#all");
+            var on = $("#on");
+            var off = $("#off");
+            
+            on.click(function() {
+                all.removeClass("btn-danger");
+                all.addClass("bg-danger");
+                off.removeClass("btn-warning");
+                off.addClass("bg-warning");
+                on.removeClass("bg-success");
+                on.addClass("btn-success");
+                
+                tbody.removeClass("bg-danger bg-warning");
+                tbody.addClass("bg-success");
+                
+                $("a").css("color", "green");
+                
+                $(".twitch-user").removeClass("twitch-border-all");
+                $(".twitch-user").removeClass("twitch-border-off");
+                $(".twitch-user").addClass("twitch-border-on");
+                
+                console.log("yo1");
+            });
+            
+            all.click(function() {
+                all.removeClass("bg-danger");
+                all.addClass("btn-danger");
+                off.removeClass("btn-warning");
+                off.addClass("bg-warning");
+                on.removeClass("btn-success");
+                on.addClass("bg-success");
+                
+                tbody.removeClass("bg-success bg-warning");
+                tbody.addClass("bg-danger");
+                
+                $("a").css("color", "brown");
+                
+                $(".twitch-user").removeClass("twitch-border-on");
+                $(".twitch-user").removeClass("twitch-border-off");
+                $(".twitch-user").addClass("twitch-border-all");
+                
+                console.log("yo2");
+            });
+            
+            off.click(function() {
+                all.removeClass("btn-danger");
+                all.addClass("bg-danger");
+                off.removeClass("bg-warning");
+                off.addClass("btn-warning");
+                on.removeClass("btn-success");
+                on.addClass("bg-success");
+                
+                tbody.removeClass("bg-danger bg-success");
+                tbody.addClass("bg-warning");
+                
+                $("a").css("color", "darkgoldenrod");
+                
+                $(".twitch-user").removeClass("twitch-border-all");
+                $(".twitch-user").removeClass("twitch-border-on");
+                $(".twitch-user").addClass("twitch-border-off");
+                
+                
+                console.log("yo3");
+            });
                                     
         </script>
     </body>
