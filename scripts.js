@@ -117,3 +117,7 @@ off.click(function() {
     $(".ons").hide();
 });
 
+var inp = $("input");
+inp.keypress(function (key) {
+    console.log(inp.val());
+});
