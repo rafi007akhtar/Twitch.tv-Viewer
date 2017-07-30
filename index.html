@@ -8,10 +8,91 @@
         
         <!-- CSS LIBRARIES REQUIRED -->
         <link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <!-- STYLINGS -->
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Bellefair');
+
+            body {
+                overflow-x: hidden;
+            }
+            img {
+                width: 100px;
+            }
+            
+            #heads {
+                background-color: aliceblue;
+                color: darkgray;
+            }
+            #twitch-body {
+                line-height: 3em;
+            }
+            
+            .twitch-navbar {
+                height: 3em;
+                padding-top: 0.7em;
+            }
+            .twitch-user {
+                font-size: 1.5em;
+                color: brown;
+                font-family: "Bellefair";
+                border-top: 1px solid brown;
+                border-bottom: 1px solid brown;
+            }
+        </style>
     </head>
     
     <body>
+        <!-- HEADING -->
+        <div class="container-fluid" id="heads">
+            <h1 class="text-center">
+                <a href="https://www.twitch.tv/" target="_blank">Twitch.tv</a> Viewer
+            </h1>
+        </div>
         
+        <br>
+                
+        <!-- TWITCH TV HEAD -->
+        <div class="row" id="twitch-head">
+            <div class="col-xs-0 col-md-4"></div>
+            <div class="col-xs-12 col-md-4 text-center">
+                <div class="col-xs-4 btn btn-danger">All</div>
+                <div class="col-xs-4 btn bg-success">Online</div>
+                <div class="col-xs-4 btn bg-warning">Offline</div>
+            </div>
+            <div class="col-xs-0 col-md-4"></div>
+        </div>
+        
+        <!-- TWITCH TV BODY -->
+        <div class="row" id="twitch-head">
+            <div class="col-xs-0 col-md-4"></div>
+            <div class="col-xs-12 col-md-4 text-left">
+                <ul type=none id="twitch-body" class="col-xs-12 text-left bg-danger">
+                    <!--<li>
+                        <span class="twitch-user">ESL_SC2</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">OgamingSC2</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">freecodecamp</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">storbeck</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">habathcx</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">RobotCaleb</span>
+                    </li>
+                    <li>
+                        <span class="twitch-user">noobs2ninjas</span>
+                    </li>-->
+                </ul>
+            </div>
+            <div class="col-xs-0 col-md-4"></div>
+        </div>
         
         <!-- JS LIBRARIES REQUIRED -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
@@ -19,16 +100,33 @@
         
         <!-- INTERACTIONS -->
         <script>
+            var tbody = $("#twitch-body");
+            
             var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
             var myurl = "https://wind-bow.gomix.me/twitch-api/users/";
+            var newurl = "";
+            let i, c;
+            c = 0;
+            for (i = 0; i < 8; i++) 
+            {
+                c++;
+                newurl = myurl + users[i];
+                $.ajax({
+                    url: newurl,
+                    dataType: "jsonp",
+                    success: function(data) {
+                        var content = $("<li></li>");
+                        content.append("<img src='" + data.logo + "' alt='User logo'>")
+                        content.append("<span> " + data.display_name + " </span>")
+                        content.addClass("twitch-user");
+                        tbody.append(content);
+                        console.log(data);
+                    }
+                });
+            }
             
-            $.ajax({
-                url: myurl,
-                dataType: "jsonp",
-                success: function(data) {
-                    console.log(data);
-                }
-            });
+            //console.log(tbody);
+                                    
         </script>
     </body>
 </html>
