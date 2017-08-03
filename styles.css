@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Bellefair');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 body {
     overflow-x: hidden;
@@ -8,6 +9,9 @@ img {
 }
 a {
     color: brown;
+}
+ul {
+    line-height: 1.22em;
 }
 
 #heads {
@@ -53,4 +57,11 @@ a {
 }
 .online-circle {
     color: green;
+}
+.foot {
+    font-family: "Titillium Web";
+    background-color: lightgray;
+    color: black;
+    padding: 7px;
+    padding-right: 10px;
 }
